@@ -1,0 +1,62 @@
+
+package com.romix.scala.serialization.kryo
+
+import java.util.Arrays;
+//import java.util.Map
+
+import junit.framework.Assert
+import org.junit.Ignore
+
+import com.esotericsoftware.kryo.Kryo
+import com.esotericsoftware.kryo.Serializer
+import com.esotericsoftware.kryo.io.Input
+import com.esotericsoftware.kryo.io.Output
+import com.esotericsoftware.kryo.serializers.MapSerializer
+//import com.romix.akka.serialization.kryo.KryoTestCase
+import com.googlecode.concurrenttrees.suffix._
+import com.googlecode.concurrenttrees.common._
+import com.googlecode.concurrenttrees.radix.node.concrete._
+import com.googlecode.concurrenttrees.radix.node.util.PrettyPrintable
+
+
+/** @author romix */
+// @Ignore
+class StringTrieSerializationTest extends KryoTestCase {
+	locally {
+		supportsCopy = false;
+	}
+	 
+	 def testStringTrieSerialization():Unit = {
+			    println("Test String trie serialization")
+				kryo.setRegistrationRequired(false)
+
+				// Map strings to integer ids
+				val tree:SuffixTree[java.lang.Integer] = new ConcurrentSuffixTree[java.lang.Integer](new DefaultCharArrayNodeFactory)
+				
+				val s1 = "path1.path2.path3.path4.path5"
+				val s2 = s1.substring(6)
+				val s3 = s2.substring(6)
+				val s4 = s3.substring(6)
+				
+				tree.put(s1, 1)
+				tree.put(s2, 2)
+				tree.put(s3, 3)
+				tree.put(s4, 4)
+
+				println
+				println("Tree structure:")
+				// PrettyPrintable is a non-public API for testing, prints semi-graphical representations of trees...
+				PrettyPrintUtil.prettyPrint(tree.asInstanceOf[PrettyPrintable], System.out)
+				
+				val keys2 = tree.getKeysEndingWith(s2)
+				System.out.println("Keys ending with " + s2 + " : " + keys2)
+				val keys3 = tree.getKeysEndingWith(s3)
+				System.out.println("Keys ending with " + s3 + " : " + keys3)
+				val keys4 = tree.getKeysEndingWith(s4)
+				System.out.println("Keys ending with " + s4 + " : " + keys4)
+				
+//				roundTrip(14, (1,'2',"Three"))
+	 }
+
+}
+
