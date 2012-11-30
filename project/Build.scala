@@ -27,7 +27,7 @@ object MinimalBuild extends Build {
 
   lazy val root = Project(id = "scala-kryo-serialization", base = file("."), settings = Project.defaultSettings).settings(
     version := buildVersion,
-    organization := "com.romix.akka",
+    organization := "com.romix.scala",
     resolvers += typesafe,
     resolvers += typesafeSnapshot,
     publishArtifact in packageDoc := false,

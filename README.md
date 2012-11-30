@@ -17,7 +17,7 @@ How to use this library in your project
 
 To use this library, you need to do include a dependency on this library into your project:
 
-	`libraryDependencies += "com.romix.akka" % "scala-kryo-serialization" % "0.2-SNAPSHOT"`
+	`libraryDependencies += "com.romix.scala" % "scala-kryo-serialization" % "0.2-SNAPSHOT"`
     
 Which Maven repository contains this library?
 ---------------------------------------------
